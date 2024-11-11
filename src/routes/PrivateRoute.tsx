@@ -1,26 +1,22 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import ClientDashboard from "../pages/Client/Dashboard";
+import ProviderDashboard from "../pages/Provider/Dashboard";
+import { getDecodedToken } from "../utils/decodeJWT";
 
-interface PrivateRouteProps {
-  children: React.ReactNode;
-  requiredRole: 'CLIENT' | 'PROVIDER';
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, requiredRole }) => {
-  const token = localStorage.getItem('token');
-  const userRole = localStorage.getItem('role');
-
-  const isAuthenticated = Boolean(token);
-
+const ProtectedDashboard: React.FC = () => {
+  const decodedToken = getDecodedToken();
+  const isAuthenticated = Boolean(decodedToken);
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  if (userRole !== requiredRole) {
+  if (decodedToken?.role === 'CLIENT') {
+    return <ClientDashboard />;
+  } else if (decodedToken?.role === 'PROVIDER') {
+    return <ProviderDashboard />;
+  } else {
     return <div>Acesso Negado: Você não tem permissão para acessar esta página.</div>;
   }
-
-  return <>{children}</>;
 };
 
-export default PrivateRoute;
+export default ProtectedDashboard

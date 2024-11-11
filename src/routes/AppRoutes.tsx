@@ -2,29 +2,32 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
-import ClientDashboard from '../pages/Client/Dashboard';
-import ProviderDashboard from '../pages/Provider/Dashboard';
-import PrivateRoute from './PrivateRoute';
+import ProtectedDashboard from './PrivateRoute';
+import { getDecodedToken } from '../utils/decodeJWT';
 
 const AppRoutes: React.FC = () => {
+  const decodedToken = getDecodedToken();
+  const isAuthenticated = Boolean(decodedToken);
+
   return (
     <Router>
       <Routes>
-        {/* public routers */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        
-        {/* private routers */}
+        {/* Redirect authenticated users based on role */}
         <Route
-          path="/client/dashboard"
-          element={<PrivateRoute requiredRole="CLIENT"><ClientDashboard /></PrivateRoute>}
-        />
-        <Route
-          path="/provider/dashboard"
-          element={<PrivateRoute requiredRole="PROVIDER"><ProviderDashboard /></PrivateRoute>}
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
         />
 
-        {/* main redirect */}
+      <Route
+          path="/register"
+          element={isAuthenticated ? <Navigate to="/" replace /> : <Register />}
+        />
+      
+        {/* Private routes */}
+        <Route path="/" element={<ProtectedDashboard />} />
+
+
+        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
