@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import Modal from '../../components/modal';
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import { Signupschema } from '../../schemas/validation';
 import { ApiError, RegisterFormData } from '../../types/auth';
-import { CustomJwtPayload } from '../../types/customJwtPayload';
+import { CustomJwtPayload } from '../../types/customJWT';
+import AlertModal from '../../components/AlertModal';
 
 const Register: React.FC = () => {
   const { register } = useAuth();
@@ -52,7 +52,7 @@ const Register: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold text-center mt-8">Register</h1>
+      <h1 className="text-3xl font-semibold text-center mt-8">Cadastro</h1>
 
       <form onSubmit={handleSubmit(handleFormSubmit)} className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
         <div className="mb-4">
@@ -119,7 +119,7 @@ const Register: React.FC = () => {
       </form>
 
       {showErrorModal && errorMessage && (
-        <Modal message={errorMessage} onClose={() => setShowErrorModal(false)} />
+        <AlertModal message={errorMessage} onClose={() => setShowErrorModal(false)} />
       )}
     </div>
   );

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { login as loginService } from '../services/authService';
-import { register as registerService } from '../services/registerService';
+import { login as loginService } from '../services/signin';
+import { register as registerService } from '../services/signup';
 import { AuthProviderProps, RegisterFormData } from '../types/auth';
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  
 
   const login = async (email: string, password: string) => {
     try {
@@ -28,12 +29,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.clear();
-  };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, register }}>
+    <AuthContext.Provider value={{ token, login, register }}>
       {children}
     </AuthContext.Provider>
   );

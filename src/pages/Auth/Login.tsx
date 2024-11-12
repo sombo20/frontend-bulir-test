@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { jwtDecode } from 'jwt-decode';
 import { ApiError, LoginFormInputs } from '../../types/auth';
-import { CustomJwtPayload } from '../../types/customJwtPayload';
 import { loginSchema } from '../../schemas/validation';
+import { CustomJwtPayload } from '../../types/customJWT';
 
 
 const Login: React.FC = () => {
