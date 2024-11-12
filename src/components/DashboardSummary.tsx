@@ -1,5 +1,4 @@
-// DashboardSummary.tsx
-import React from 'react';
+import React, { useCallback } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { FaHourglassHalf, FaDollarSign, FaSpinner } from 'react-icons/fa';
 import { DashboardSummaryProps } from '../types/service';
@@ -9,10 +8,14 @@ import { useNavigate } from 'react-router-dom';
 const DashboardSummary: React.FC<DashboardSummaryProps> = ({ reservasPendentes, balancoTotal, onOpenReservationModal , isLoading}) => {
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
-    navigate("/login")
-  };
+    navigate("/login");
+}, [navigate]);
+
+
+
+  
   
   return (
     <div className="flex flex-col md:flex-row justify-between items-center bg-gray-200 p-4 rounded mb-4 space-y-4 md:space-y-0">
