@@ -3,6 +3,7 @@ export interface Service {
   name: string;
   description: string;
   price: number;
+  provider_name:string
 }
 
 export  interface ServiceModalProps {

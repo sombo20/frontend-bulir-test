@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { FaHourglassHalf, FaDollarSign, FaSpinner, FaExchangeAlt } from 'react-icons/fa';
+import { FaHourglassHalf, FaSpinner, FaExchangeAlt, FaMoneyBillAlt } from 'react-icons/fa';
 import { DashboardSummaryProps } from '../types/service';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,10 +11,7 @@ const DashboardSummary: React.FC<DashboardSummaryProps> = ({title,reservas, bala
   const logout = useCallback(() => {
     localStorage.removeItem("token");
     navigate("/login");
-}, [navigate]);
-
-
-
+  }, [navigate]);
   
   
   return (
@@ -32,12 +29,12 @@ const DashboardSummary: React.FC<DashboardSummaryProps> = ({title,reservas, bala
       }
 
       <div className="flex items-center">
-        <FaDollarSign className="mr-2 text-green-500" />
+        <FaMoneyBillAlt className="mr-2 text-green-500" />
         <span className="text-gray-700">
           {isLoading ? (
             <FaSpinner className="animate-spin mr-2" />
           ) : (
-            `${balancoTotal.toFixed(2)}`
+            `${balancoTotal.toFixed(2)} kz`
           )}
         </span>
       </div>

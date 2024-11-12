@@ -7,8 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/v1': {
-        target:"http://localhost:3000",
-        //target: 'https://backend-bulir-teste.onrender.com',
+        //target:"http://localhost:3000",
+        target: 'https://backend-bulir-teste.onrender.com',
         changeOrigin: true
       },
     },

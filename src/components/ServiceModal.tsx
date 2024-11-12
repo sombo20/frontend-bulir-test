@@ -5,7 +5,11 @@ import { Service, ServiceModalProps } from '../types/service';
 import { serviceSchema } from '../schemas/validation';
 import { FaSpinner } from 'react-icons/fa';
 
-type ServiceForm = Omit<Service, 'id'>;
+type ServiceForm = {
+  name: string;
+  description: string;
+  price: number;
+};
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ newService, onSave, onClose, isEditing , isLoading}) => {
   const {

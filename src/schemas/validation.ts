@@ -24,5 +24,5 @@ export const Signupschema = yup.object().shape({
 export const serviceSchema = yup.object().shape({
   name: yup.string().required('O nome é obrigatório').typeError('O nome deve ser uma string'),
   description: yup.string().required('A descrição é obrigatória').typeError('A descrição deve ser uma string'),
-  price: yup.number().required('O preço é obrigatório').positive('O preço deve ser um número positivo').typeError('O preço deve ser um número'),
+  price: yup.number().required('O preço é obrigatório').positive('O preço deve ser um número positivo').typeError('O preço deve ser um número'), 
 });

@@ -114,7 +114,7 @@ const ProviderDashboard: React.FC = () => {
         onClick={() => {
           setIsModalOpen(true);
           setIsEditing(false);
-          setNewService({ id: 0, name: '', description: '', price: 0 });
+          setNewService({ id: 0, name: '', description: '', price: 0 , provider_name:""});
         }}
         className={`flex items-center ${isLoading ? "bg-gray-500" : "bg-blue-500"} text-white px-4 py-2 rounded mb-4`}
         disabled={isLoading} 

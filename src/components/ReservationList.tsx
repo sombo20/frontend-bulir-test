@@ -18,7 +18,7 @@ const ReservationList: React.FC<ReservationListProps> = ({ reservasPendentes, on
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded shadow-md w-full max-w-md mx-4">
         <h2 className="text-lg font-semibold mb-4">Reservas Pendentes</h2>
-        <div className="max-h-64 overflow-y-auto"> {/* Adiciona rolagem aqui */}
+        <div className="max-h-64 overflow-y-auto"> 
           <ul className="space-y-4">
             {reservasPendentes.map((reserva, index) => (
               <li key={index} className="flex justify-between items-center border p-4 rounded">
@@ -40,7 +40,7 @@ const ReservationList: React.FC<ReservationListProps> = ({ reservasPendentes, on
                       </button>
                       <button 
                         className="bg-red-500 text-white px-2 py-1 rounded" 
-                        onClick={() => handleConfirmOrCancel(reserva.id, "cancel")}
+                        onClick={() => handleConfirmOrCancel(reserva.id, "cancell")}
                       >
                         Cancelar
                       </button>

@@ -9,8 +9,9 @@ const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete, i
       <li key={service.id} className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border rounded space-y-2 md:space-y-0">
         <div>
           <h3 className="text-lg font-bold">{service.name}</h3>
-          <p className="text-gray-700">{service.description}</p>
-          <p className="text-gray-500">$ {service.price}</p>
+          <p className="text-gray-700"> Descrição: {service.description}</p>
+         {type !== "PROVIDER" && <p className="text-gray-700">Loja: {service.provider_name}</p> }
+          <p className="text-gray-500"> {service.price} kz</p>
         </div>
         <div className="flex space-x-2">
           {
