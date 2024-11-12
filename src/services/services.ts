@@ -24,12 +24,28 @@ export const createService = async (data: ServiceFormInput) => {
     return response.data;
   };
 
-  export const getAllServices = async () => {
+  export const getAllServicesById = async () => {
     const token = JSON.parse(localStorage.getItem("token") || '{}');
     const userInfo = jwtDecode<CustomJwtPayload>(token);
 
     const response = await axios.get(
       ` /api/v1/services/${userInfo.sub}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    return response.data;
+  };
+
+
+  export const getAllServices = async () => {
+    const token = JSON.parse(localStorage.getItem("token") || '{}');
+   
+    const response = await axios.get(
+      ` /api/v1/services`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaEdit, FaSpinner, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaShoppingCart, FaSpinner, FaTrash } from 'react-icons/fa';
 import { ServiceListProps } from '../types/service';
 
 
-const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete, isDeleting }) => (
+const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete, isDeleting, onCreate, isLoading, type }) => (
   <ul className="space-y-4">
     {services.map((service) => (
       <li key={service.id} className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border rounded space-y-2 md:space-y-0">
@@ -13,17 +13,34 @@ const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete, i
           <p className="text-gray-500">$ {service.price}</p>
         </div>
         <div className="flex space-x-2">
-          <button onClick={() => onEdit(service)} className="text-blue-500">
-          {isDeleting !== service.id && ( <FaEdit />)}
-          </button>
+          {
+          type !== "CLIENT" && 
+            <button onClick={() => onEdit && onEdit(service)} className="text-blue-500">
+              {isDeleting !== service.id && ( <FaEdit />)}
+            </button>
+          }
           
-          <button onClick={() => onDelete(service.id)} className="text-red-500">
-          {isDeleting === service.id ? (
-              <FaSpinner className="animate-spin" /> 
-            ) : ( 
-              <FaTrash />
-            )}
-          </button>
+          {
+          type !== "CLIENT" && 
+            <button onClick={() => onDelete && onDelete(service.id)} className="text-red-500">
+            {isDeleting === service.id ? (
+                <FaSpinner className="animate-spin" /> 
+              ) : ( 
+                <FaTrash />
+              )}
+            </button>
+          }
+
+        {
+          type !== "PROVIDER" && 
+            <button onClick={() => onCreate && onCreate(service)} className="text-red-500">
+            {isLoading ? (
+                <FaSpinner className="animate-spin" /> 
+              ) : ( 
+                <FaShoppingCart />
+              )}
+            </button>
+          }
         </div>
       </li>
     ))}

@@ -23,15 +23,21 @@ export interface ServiceFormInput {
 
 
 export interface DashboardSummaryProps {
-  reservasPendentes: number;
+  title?: string;
+  reservas: number;
   balancoTotal: number;
-  onOpenReservationModal: () => void;
+  onOpenReservationModal?: () => void;
   isLoading:boolean
+  onOpenTransactionsModal?: () => void;
+  type: "CLIENT" | "PROVIDER"
 }
 
 export interface ServiceListProps {
   services: Service[];
-  onEdit: (service: Service) => void;
-  onDelete: (id: number) => void;
-  isDeleting?: number | null
+  onEdit?: (service: Service) => void;
+  onDelete?: (id: number) => void;
+  isDeleting?: number | null;
+  onCreate?:(service: Service) => void;
+  isLoading?:boolean;
+  type:"CLIENT" | "PROVIDER"
 }

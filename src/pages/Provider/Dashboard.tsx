@@ -7,7 +7,7 @@ import ReservationList from '../../components/ReservationList';
 import ServiceModal from '../../components/ServiceModal';
 import { CustomJwtPayload } from '../../types/customJWT';
 import { jwtDecode } from 'jwt-decode';
-import { createService, deleteService, getAllServices, updateService } from '../../services/services';
+import { createService, deleteService, getAllServicesById, updateService } from '../../services/services';
 import { confirmOrCancelReservation, getAllPendingReservationAndAccountBalance } from '../../services/reservation';
 import { Reservation } from '../../types/reservation';
 
@@ -44,7 +44,7 @@ const ProviderDashboard: React.FC = () => {
   const fetchServices = async () => {
     setIsLoading(true);
     try {
-      const allServices = await getAllServices();
+      const allServices = await getAllServicesById();
       const allPendingAndBalance = await getAllPendingReservationAndAccountBalance()
       setServices(allServices);
       setBalancoTotal(allPendingAndBalance.accountBalance)
@@ -101,7 +101,9 @@ const ProviderDashboard: React.FC = () => {
   return (
     <div className="p-4 max-w-4xl mx-auto">
       <DashboardSummary
-        reservasPendentes={reservasPendentes}
+        title="Reservas Pendentes"
+        type="PROVIDER"
+        reservas={reservasPendentes}
         balancoTotal={balancoTotal}
         isLoading={isLoading}
         onOpenReservationModal={() => setIsReservationModalOpen(true)}
@@ -123,7 +125,7 @@ const ProviderDashboard: React.FC = () => {
       {isLoading ? (
         <p>Carregando serviços...</p> 
       ) : (
-        <ServiceList services={services} onEdit={handleEditService} onDelete={handleDeleteService} isDeleting={isDeleting}/>
+        <ServiceList services={services} onEdit={handleEditService} onDelete={handleDeleteService} isDeleting={isDeleting} type="PROVIDER"/>
       )}
       {isReservationModalOpen && (
         <ReservationList reservasPendentes={reservas} onClose={() => setIsReservationModalOpen(false)} onSave={handleConfirmOrCancel} isLoading={isLoading}/>
