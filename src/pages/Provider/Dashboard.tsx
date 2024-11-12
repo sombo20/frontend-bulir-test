@@ -8,7 +8,7 @@ import ServiceModal from '../../components/ServiceModal';
 import { CustomJwtPayload } from '../../types/customJWT';
 import { jwtDecode } from 'jwt-decode';
 import { createService, deleteService, getAllServices, updateService } from '../../services/services';
-import { getAllPendingReservationAndAccountBalance } from '../../services/reservation';
+import { confirmOrCancelReservation, getAllPendingReservationAndAccountBalance } from '../../services/reservation';
 import { Reservation } from '../../types/reservation';
 
 const ProviderDashboard: React.FC = () => {
@@ -89,6 +89,15 @@ const ProviderDashboard: React.FC = () => {
     setIsDeleting(null);
   };
 
+  const handleConfirmOrCancel = async (id: number, status:string) => {
+    setIsLoading(true)
+    setIsModalOpen(false);
+    await confirmOrCancelReservation(id, status);
+    await fetchServices();
+    setIsLoading(false);
+  };
+  
+
   return (
     <div className="p-4 max-w-4xl mx-auto">
       <DashboardSummary
@@ -117,7 +126,7 @@ const ProviderDashboard: React.FC = () => {
         <ServiceList services={services} onEdit={handleEditService} onDelete={handleDeleteService} isDeleting={isDeleting}/>
       )}
       {isReservationModalOpen && (
-        <ReservationList reservasPendentes={reservas} onClose={() => setIsReservationModalOpen(false)} />
+        <ReservationList reservasPendentes={reservas} onClose={() => setIsReservationModalOpen(false)} onSave={handleConfirmOrCancel} isLoading={isLoading}/>
       )}
       {isModalOpen && (
         <ServiceModal

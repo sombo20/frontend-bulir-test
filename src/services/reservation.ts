@@ -18,3 +18,21 @@ export const getAllPendingReservationAndAccountBalance = async () => {
     return response.data;
   };
  
+  export const confirmOrCancelReservation = async (id:number, status:string) => {
+    const token = JSON.parse(localStorage.getItem("token") || '{}');
+
+    const response = await axios.patch(
+      `/api/v1/reservations/${id}/status`,
+        {
+            "status":`${status}`
+        },
+        {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    
+    return response.data;
+  };
+ 
